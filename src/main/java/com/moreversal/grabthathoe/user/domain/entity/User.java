@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity(name = "user")
 @Getter
@@ -24,6 +23,7 @@ public class User {
     private String name;
 
     @Column(name="birth_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Column(nullable = false, length = 10)
@@ -38,13 +38,13 @@ public class User {
 
     @Column(name = "reg_dt", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime regDt;
+    private Date regDt;
 
     @Column(name = "upd_id", nullable = false, length = 45)
     private String updId;
 
     @Column(name = "upd_dt", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updDt;
+    private Date updDt;
 
 }
