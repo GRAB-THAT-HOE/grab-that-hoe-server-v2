@@ -2,10 +2,13 @@ package com.moreversal.grabthathoe.user.domain.entity;
 
 import com.moreversal.grabthathoe.user.domain.enums.Role;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity(name = "user")
@@ -37,14 +40,26 @@ public class User {
     private String regId;
 
     @Column(name = "reg_dt", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date regDt;
+    private LocalDateTime regDt;
 
     @Column(name = "upd_id", nullable = false, length = 45)
     private String updId;
 
     @Column(name = "upd_dt", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updDt;
+    private LocalDateTime updDt;
+
+    @Builder
+    public User(String phone, String name, Date birthDate, String status, Role role) {
+        Assert.hasText(phone, "phone number must not be empty");
+        Assert.hasText(name, "name must not be empty");
+        Assert.hasText(status, "status must not be empty");
+        Assert.isInstanceOf(Role.class, role, "role must be Role type");
+
+        this.phone = phone;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.status = status;
+        this.role = role;
+    }
 
 }
