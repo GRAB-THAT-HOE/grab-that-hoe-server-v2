@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User join(UserJoinDto userJoinDto) {
         if(userRepository.existsUserByPhone(userJoinDto.getPhone())) {
-            throw new EntityExistsException();
+            throw new RuntimeException("해당 id가 이미 존재합니다.");
         }
 
         User user = User.builder()
