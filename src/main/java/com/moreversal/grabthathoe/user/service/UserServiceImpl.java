@@ -6,8 +6,6 @@ import com.moreversal.grabthathoe.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
