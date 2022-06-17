@@ -4,6 +4,7 @@ import com.moreversal.grabthathoe.common.exception.PhoneExistsException;
 import com.moreversal.grabthathoe.user.domain.dto.UserJoinDto;
 import com.moreversal.grabthathoe.user.domain.dto.UserLoginDto;
 import com.moreversal.grabthathoe.user.domain.entity.User;
+import com.moreversal.grabthathoe.user.domain.enums.UserStatus;
 import com.moreversal.grabthathoe.user.domain.repository.UserRepository;
 import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
                 .phone(userJoinDto.getPhone())
                 .name(userJoinDto.getName())
                 .birthDate(userJoinDto.getBirthDate())
-                .status("1")
+                .status(UserStatus.NORMAL)
                 .userRole(userJoinDto.getUserRole())
                 .build();
 

@@ -1,6 +1,7 @@
 package com.moreversal.grabthathoe.user.domain.entity;
 
 import com.moreversal.grabthathoe.user.domain.enums.UserRole;
+import com.moreversal.grabthathoe.user.domain.enums.UserStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import java.util.Date;
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long id;
 
     @Column(nullable = false, length = 11, unique = true)
     private String phone;
@@ -26,40 +27,45 @@ public class User {
     private String name;
 
     @Column(name="birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private LocalDateTime birthDate;
 
-    @Column(nullable = false, length = 10)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole userRole;
 
-    @Column(name = "reg_id", nullable = false, length = 45)
+    @Column(nullable = false, length = 45)
     private String regId;
 
-    @Column(name = "reg_dt", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime regDt;
 
-    @Column(name = "upd_id", nullable = false, length = 45)
+    @Column(nullable = false, length = 45)
     private String updId;
 
-    @Column(name = "upd_dt", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime updDt;
 
     @Builder
-    public User(String phone, String name, Date birthDate, String status, UserRole userRole) {
+    public User(String phone, String name, LocalDateTime birthDate, UserStatus status, UserRole userRole, String regId, String updId) {
+
         Assert.hasText(phone, "phone number must not be empty");
         Assert.hasText(name, "name must not be empty");
-        Assert.hasText(status, "status must not be empty");
+        Assert.isInstanceOf(UserStatus.class, status, "status must not be empty");
         Assert.isInstanceOf(UserRole.class, userRole, "role must be Role type");
+        Assert.hasText(regId, "regId must not be empty");
+        Assert.hasText(updId, "updId must not be empty");
 
         this.phone = phone;
         this.name = name;
         this.birthDate = birthDate;
         this.status = status;
         this.userRole = userRole;
+        this.regId = regId;
+        this.updId = updId;
     }
 
 }
