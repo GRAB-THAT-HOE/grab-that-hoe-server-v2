@@ -1,5 +1,5 @@
 package com.moreversal.grabthathoe.user.domain.enums;
 
-public enum Status {
-
+public enum UserRole {
+    FARMER, WORKER, VOLUNTEER
 }

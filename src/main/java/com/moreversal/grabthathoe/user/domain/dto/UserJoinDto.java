@@ -1,6 +1,6 @@
 package com.moreversal.grabthathoe.user.domain.dto;
 
-import com.moreversal.grabthathoe.user.domain.enums.Role;
+import com.moreversal.grabthathoe.user.domain.enums.UserRole;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -11,15 +11,21 @@ import java.util.Date;
 public class UserJoinDto {
 
     @NotBlank
-    String phone;
+    private String phone;
 
     @NotBlank
-    String name;
+    private String name;
 
     @NotNull
-    Date birthDate;
+    private Date birthDate;
 
     @NotNull
-    Role role;
+    private UserRole userRole;
 
+    public UserJoinDto(String phone, String name, Date birthDate, UserRole userRole) {
+        this.phone = phone;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.userRole = userRole;
+    }
 }

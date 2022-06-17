@@ -1,6 +1,6 @@
 package com.moreversal.grabthathoe.user.domain.entity;
 
-import com.moreversal.grabthathoe.user.domain.enums.Role;
+import com.moreversal.grabthathoe.user.domain.enums.UserRole;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 11, unique = true)
     private String phone;
 
     @Column(nullable = false, length = 10)
@@ -34,7 +34,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private UserRole userRole;
 
     @Column(name = "reg_id", nullable = false, length = 45)
     private String regId;
@@ -49,17 +49,17 @@ public class User {
     private LocalDateTime updDt;
 
     @Builder
-    public User(String phone, String name, Date birthDate, String status, Role role) {
+    public User(String phone, String name, Date birthDate, String status, UserRole userRole) {
         Assert.hasText(phone, "phone number must not be empty");
         Assert.hasText(name, "name must not be empty");
         Assert.hasText(status, "status must not be empty");
-        Assert.isInstanceOf(Role.class, role, "role must be Role type");
+        Assert.isInstanceOf(UserRole.class, userRole, "role must be Role type");
 
         this.phone = phone;
         this.name = name;
         this.birthDate = birthDate;
         this.status = status;
-        this.role = role;
+        this.userRole = userRole;
     }
 
 }
