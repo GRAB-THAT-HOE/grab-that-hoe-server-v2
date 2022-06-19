@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
                 .birthDate(userJoinDto.getBirthDate())
                 .status(UserStatus.NORMAL)
                 .userRole(userJoinDto.getUserRole())
+                .regId("test")
+                .updId("test")
                 .build();
 
         return userRepository.save(user);

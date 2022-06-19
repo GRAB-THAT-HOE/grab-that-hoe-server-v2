@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -17,12 +18,12 @@ public class UserJoinDto {
     private String name;
 
     @NotNull
-    private Date birthDate;
+    private LocalDateTime birthDate;
 
     @NotNull
     private UserRole userRole;
 
-    public UserJoinDto(String phone, String name, Date birthDate, UserRole userRole) {
+    public UserJoinDto(String phone, String name, LocalDateTime birthDate, UserRole userRole) {
         this.phone = phone;
         this.name = name;
         this.birthDate = birthDate;

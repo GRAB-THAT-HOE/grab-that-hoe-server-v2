@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "posting")
@@ -77,7 +76,6 @@ public class Posting {
 
     @Builder
     public Posting(String title, String explanation, int maxWorker, boolean giveRoomAndMeal, boolean giveSnack, String image, LocalDateTime startDate, LocalDateTime endDate, Long pay, PostingStatus status, User farmer, String regId, String updId) {
-
 
         this.title = title;
         this.explanation = explanation;

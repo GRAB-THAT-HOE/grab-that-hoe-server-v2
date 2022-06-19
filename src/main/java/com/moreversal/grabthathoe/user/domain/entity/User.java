@@ -65,7 +65,14 @@ public class User {
         this.status = status;
         this.userRole = userRole;
         this.regId = regId;
+        this.regDt = LocalDateTime.now();
         this.updId = updId;
+        this.updDt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void updatedDate() {
+        this.updDt = LocalDateTime.now();
     }
 
 }
