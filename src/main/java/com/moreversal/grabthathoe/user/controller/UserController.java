@@ -4,9 +4,11 @@ import com.moreversal.grabthathoe.common.response.DataResponse;
 import com.moreversal.grabthathoe.user.domain.dto.UserJoinDto;
 import com.moreversal.grabthathoe.user.domain.dto.UserLoginDto;
 import com.moreversal.grabthathoe.user.domain.entity.User;
+import com.moreversal.grabthathoe.user.domain.ro.TokenRefreshRo;
 import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 import com.moreversal.grabthathoe.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +29,11 @@ public class UserController {
     public DataResponse<UserLoginRo> login(@RequestBody UserLoginDto loginDto) {
         UserLoginRo loginRo = userService.login(loginDto);
         return new DataResponse<>(HttpStatus.OK, "로그인 성공", loginRo);
+    }
+
+    @PostMapping("/refresh")
+    public DataResponse<TokenRefreshRo> refresh(@RequestBody String accessToken) {
+        TokenRefreshRo tokenRefreshRo = userService.refresh(accessToken);
+        return new DataResponse<>(HttpStatus.OK, "토큰 재발급 성공", tokenRefreshRo);
     }
 }
