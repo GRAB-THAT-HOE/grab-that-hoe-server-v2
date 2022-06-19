@@ -10,6 +10,8 @@ import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -38,20 +40,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLoginRo login(UserLoginDto userLoginDto) {
 
-        User user = userRepository.getUserByPhone(userLoginDto.getPhone());
+        Optional<User> user = userRepository.getUserByPhone(userLoginDto.getPhone());
 
-        if(user == null) {
+        if(!user.isPresent()) {
             throw new RuntimeException("해당 로그인 정보에 대한 회원이 없습니다.");
         }
 
         UserLoginRo loginRo = UserLoginRo.builder()
-                .user(user)
+                .user(user.get())
                 .accessToken("test")
                 .refreshToken("test")
                 .build();
 
         return loginRo;
     }
-
-
 }
