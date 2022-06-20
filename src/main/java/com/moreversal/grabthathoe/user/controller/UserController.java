@@ -35,4 +35,10 @@ public class UserController {
         TokenRefreshRo tokenRefreshRo = userService.refresh(refreshToken);
         return new DataResponse<>(HttpStatus.OK, "토큰 재발급 성공", tokenRefreshRo);
     }
+
+    @GetMapping("/{id}")
+    public DataResponse<User> getUser(@PathVariable("id") Long id) {
+        User user = userService.getUser(id);
+        return new DataResponse<>(HttpStatus.OK, "유저 조회 성공", user);
+    }
 }

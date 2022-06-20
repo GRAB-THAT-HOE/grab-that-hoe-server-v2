@@ -2,6 +2,7 @@ package com.moreversal.grabthathoe.user.service;
 
 import com.moreversal.grabthathoe.common.enums.JwtType;
 import com.moreversal.grabthathoe.common.exception.DuplicateRecordException;
+import com.moreversal.grabthathoe.common.exception.RecordNotFoundException;
 import com.moreversal.grabthathoe.common.lib.Jwt;
 import com.moreversal.grabthathoe.user.domain.dto.UserJoinDto;
 import com.moreversal.grabthathoe.user.domain.dto.UserLoginDto;
@@ -67,6 +68,16 @@ public class UserServiceImpl implements UserService {
 
         String newAccessToken = jwt.refresh(refreshToken);
         return new TokenRefreshRo(newAccessToken);
+    }
+
+    @Override
+    public User getUser(Long id) {
+
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new RecordNotFoundException();
+        }
+        return user.get();
     }
 }
 

@@ -10,4 +10,5 @@ public interface UserService {
     User join(UserJoinDto userJoinDto);
     UserLoginRo login(UserLoginDto userLoginDto);
     TokenRefreshRo refresh(String refreshToken);
+    User getUser(Long id);
 }
