@@ -7,6 +7,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,6 +56,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateRecordException.class)
     public ErrorResponse handleDuplicateRecordException(DuplicateRecordException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage(), "DuplicateRecordException");
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST, "요청 메서드가 잘못되었습니다", "HttpRequestMethodNotSupportedException");
     }
 
 }

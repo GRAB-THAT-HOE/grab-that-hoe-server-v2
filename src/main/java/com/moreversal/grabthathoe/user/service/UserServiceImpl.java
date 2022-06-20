@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return loginRo;
     }
 
+    @Override
     public TokenRefreshRo refresh(String refreshToken) {
 
         String newAccessToken = jwt.refresh(refreshToken);
