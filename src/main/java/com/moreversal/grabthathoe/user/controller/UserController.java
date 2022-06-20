@@ -8,7 +8,6 @@ import com.moreversal.grabthathoe.user.domain.ro.TokenRefreshRo;
 import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 import com.moreversal.grabthathoe.user.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/refresh")
-    public DataResponse<TokenRefreshRo> refresh(@RequestBody String accessToken) {
-        TokenRefreshRo tokenRefreshRo = userService.refresh(accessToken);
+    public DataResponse<TokenRefreshRo> refresh(@RequestBody String refreshToken) {
+        TokenRefreshRo tokenRefreshRo = userService.refresh(refreshToken);
         return new DataResponse<>(HttpStatus.OK, "토큰 재발급 성공", tokenRefreshRo);
     }
 }

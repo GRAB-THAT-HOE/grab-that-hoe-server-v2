@@ -1,7 +1,7 @@
 package com.moreversal.grabthathoe.user.service;
 
 import com.moreversal.grabthathoe.common.enums.JwtType;
-import com.moreversal.grabthathoe.common.exception.PhoneExistsException;
+import com.moreversal.grabthathoe.common.exception.DuplicateRecordException;
 import com.moreversal.grabthathoe.common.lib.Jwt;
 import com.moreversal.grabthathoe.user.domain.dto.UserJoinDto;
 import com.moreversal.grabthathoe.user.domain.dto.UserLoginDto;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User join(UserJoinDto userJoinDto) {
         if(userRepository.existsUserByPhone(userJoinDto.getPhone())) {
-            throw new PhoneExistsException("해당 id가 이미 존재합니다.");
+            throw new DuplicateRecordException("해당 id가 이미 존재합니다.");
         }
 
         User user = User.builder()
@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
         return loginRo;
     }
 
-    public TokenRefreshRo refresh(String accessToken) {
+    public TokenRefreshRo refresh(String refreshToken) {
 
-        String newAccessToken = jwt.refresh(accessToken);
+        String newAccessToken = jwt.refresh(refreshToken);
         return new TokenRefreshRo(newAccessToken);
     }
 }

@@ -9,5 +9,5 @@ import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 public interface UserService {
     User join(UserJoinDto userJoinDto);
     UserLoginRo login(UserLoginDto userLoginDto);
-    TokenRefreshRo refresh(String accessToken);
+    TokenRefreshRo refresh(String refreshToken);
 }
