@@ -2,6 +2,7 @@ package com.moreversal.grabthathoe.common.handler;
 
 import com.moreversal.grabthathoe.common.exception.AuthorizationException;
 import com.moreversal.grabthathoe.common.exception.DuplicateRecordException;
+import com.moreversal.grabthathoe.common.exception.RecordNotFoundException;
 import com.moreversal.grabthathoe.common.response.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -61,6 +62,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "요청 메서드가 잘못되었습니다", "HttpRequestMethodNotSupportedException");
+    }
+
+    @ExceptionHandler(RecordNotFoundException.class)
+    public ErrorResponse handleRecordNotFoundException(RecordNotFoundException e) {
+        return new ErrorResponse(HttpStatus.NOT_FOUND, "해당 행을 찾지 못했습니다", "RecordNotFoundException");
     }
 
 }

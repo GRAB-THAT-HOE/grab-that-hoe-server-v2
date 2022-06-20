@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLoginRo login(UserLoginDto userLoginDto) {
 
-        Optional<User> user = userRepository.getUserByPhone(userLoginDto.getPhone());
+        Optional<User> user = userRepository.findUserByPhone(userLoginDto.getPhone());
 
         if(!user.isPresent()) {
             throw new RuntimeException("해당 로그인 정보에 대한 회원이 없습니다.");

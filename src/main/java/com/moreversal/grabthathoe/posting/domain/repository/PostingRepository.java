@@ -4,6 +4,8 @@ import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.*;
+
 @Repository
 public interface PostingRepository extends JpaRepository<Posting, Long> {
 

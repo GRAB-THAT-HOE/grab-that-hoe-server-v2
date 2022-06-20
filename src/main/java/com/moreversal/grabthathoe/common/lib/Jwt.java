@@ -71,7 +71,7 @@ public class Jwt {
     public User validateToken(String token) {
 
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretAccessKey)).parseClaimsJws(token).getBody();
-        Optional<User> user = userRepository.getUserByPhone(claims.get("phone", String.class));
+        Optional<User> user = userRepository.findUserByPhone(claims.get("phone", String.class));
 
         if(!user.isPresent()) {
             throw new AuthorizationException("해당하는 유저 정보가 없습니다.");
@@ -83,7 +83,7 @@ public class Jwt {
     public String refresh(String refreshToken) {
 
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretRefreshKey)).parseClaimsJws(refreshToken).getBody();
-        Optional<User> user = userRepository.getUserByPhone(claims.get("phone", String.class));
+        Optional<User> user = userRepository.findUserByPhone(claims.get("phone", String.class));
 
         if(!user.isPresent()) {
             throw new AuthorizationException("해당하는 유저 정보가 없습니다.");
