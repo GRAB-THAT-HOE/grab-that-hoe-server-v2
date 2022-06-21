@@ -26,7 +26,7 @@ public class CreatePostingDto {
     private boolean giveSnack;
 
     @NotBlank
-    private boolean image;
+    private String image;
 
     @NotBlank
     private LocalDateTime startWorkingDate;
