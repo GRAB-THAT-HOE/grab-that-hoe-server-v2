@@ -2,6 +2,7 @@ package com.moreversal.grabthathoe.posting.controller;
 
 import com.moreversal.grabthathoe.common.annotation.AuthorizationCheck;
 import com.moreversal.grabthathoe.common.response.DataResponse;
+import com.moreversal.grabthathoe.common.response.Response;
 import com.moreversal.grabthathoe.posting.domain.dto.CreatePostingDto;
 import com.moreversal.grabthathoe.posting.domain.dto.UpdatePostingDto;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
@@ -40,5 +41,13 @@ public class PostingController {
         User user = (User) request.getAttribute("user");
         Posting updatedPosting = postingService.updatePosting(dto, user);
         return new DataResponse<>(HttpStatus.OK, "포스팅 수정 성공", updatedPosting);
+    }
+
+    @AuthorizationCheck
+    @DeleteMapping("/{id}")
+    public Response deletePosting(HttpServletRequest request, @PathVariable("id") Long id) {
+        User user = (User) request.getAttribute("user");
+        Posting deletedPosting = postingService.deletePosting(id, user);
+        return new Response(HttpStatus.OK, "포스팅 삭제 성공");
     }
 }

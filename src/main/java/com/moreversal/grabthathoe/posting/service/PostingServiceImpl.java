@@ -75,4 +75,20 @@ public class PostingServiceImpl implements PostingService {
 
         return posting;
     }
+
+    public Posting deletePosting(Long id, User user) {
+
+        Posting posting = postingRepository.findById(id)
+                .orElseThrow(RecordNotFoundException::new);
+
+        if(!posting.getFarmer().getId().equals(id)) {
+            throw new ForbiddenException("자신의 게시글이 아니면 삭제할 수 없습니다.");
+        }
+
+        // 이미 연결된 일손이 있는지 체크. 있으면 ForbiddenException throw
+
+        postingRepository.delete(posting);
+
+        return posting;
+    }
 }

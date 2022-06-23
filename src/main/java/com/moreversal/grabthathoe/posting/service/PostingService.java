@@ -10,4 +10,5 @@ public interface PostingService {
     Posting getPosting(Long id);
     Posting createPosting(CreatePostingDto dto, User user);
     Posting updatePosting(UpdatePostingDto dto, User user);
+    Posting deletePosting(Long id, User user);
 }
