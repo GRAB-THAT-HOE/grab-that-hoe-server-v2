@@ -3,6 +3,7 @@ package com.moreversal.grabthathoe.posting.service;
 import com.moreversal.grabthathoe.common.exception.ForbiddenException;
 import com.moreversal.grabthathoe.common.exception.RecordNotFoundException;
 import com.moreversal.grabthathoe.posting.domain.dto.CreatePostingDto;
+import com.moreversal.grabthathoe.posting.domain.dto.UpdatePostingDto;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.posting.domain.enums.PostingStatus;
 import com.moreversal.grabthathoe.posting.domain.repository.PostingRepository;
@@ -55,6 +56,22 @@ public class PostingServiceImpl implements PostingService {
                 .regId("test")
                 .updId("test")
                 .build();
+
+        return posting;
+    }
+
+    public Posting updatePosting(UpdatePostingDto dto, User user) {
+
+        Posting posting = postingRepository.findById(dto.getId())
+                .orElseThrow(RecordNotFoundException::new);
+
+        if(!posting.getFarmer().getId().equals(user.getId())) {
+            throw new ForbiddenException("자신의 게시글이 아니면 수정할 수 없습니다.");
+        }
+
+        posting.setTitle(dto.getTitle());
+        posting.setExplanation(dto.getExplanation());
+        postingRepository.save(posting);
 
         return posting;
     }

@@ -2,10 +2,7 @@ package com.moreversal.grabthathoe.posting.domain.entity;
 
 import com.moreversal.grabthathoe.posting.domain.enums.PostingStatus;
 import com.moreversal.grabthathoe.user.domain.entity.User;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,10 +16,12 @@ public class Posting {
     private Long id;
 
     // 글의 제목
+    @Setter
     @Column(nullable = false)
     private String title;
 
     // 글의 자세한 설명
+    @Setter
     @Column(nullable = false)
     private String explanation;
 

@@ -3,6 +3,7 @@ package com.moreversal.grabthathoe.posting.controller;
 import com.moreversal.grabthathoe.common.annotation.AuthorizationCheck;
 import com.moreversal.grabthathoe.common.response.DataResponse;
 import com.moreversal.grabthathoe.posting.domain.dto.CreatePostingDto;
+import com.moreversal.grabthathoe.posting.domain.dto.UpdatePostingDto;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.posting.service.PostingService;
 import com.moreversal.grabthathoe.user.domain.entity.User;
@@ -31,5 +32,13 @@ public class PostingController {
         User user = (User) request.getAttribute("user");
         Posting createdPosting = postingService.createPosting(dto, user);
         return new DataResponse<>(HttpStatus.OK, "포스팅 생성 성공", createdPosting);
+    }
+
+    @AuthorizationCheck
+    @PatchMapping("/")
+    public DataResponse<Posting> updatePosting(HttpServletRequest request, @RequestBody UpdatePostingDto dto) {
+        User user = (User) request.getAttribute("user");
+        Posting updatedPosting = postingService.updatePosting(dto, user);
+        return new DataResponse<>(HttpStatus.OK, "포스팅 수정 성공", updatedPosting);
     }
 }
