@@ -1,16 +1,17 @@
 package com.moreversal.grabthathoe.posting.service;
 
+import com.moreversal.grabthathoe.common.exception.ForbiddenException;
 import com.moreversal.grabthathoe.common.exception.RecordNotFoundException;
 import com.moreversal.grabthathoe.posting.domain.dto.CreatePostingDto;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.posting.domain.enums.PostingStatus;
 import com.moreversal.grabthathoe.posting.domain.repository.PostingRepository;
 import com.moreversal.grabthathoe.user.domain.entity.User;
+import com.moreversal.grabthathoe.user.domain.enums.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class PostingServiceImpl implements PostingService {
     public Posting getPosting(Long id) {
 
         Posting posting = postingRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException());
+                .orElseThrow(RecordNotFoundException::new);
 
         return posting;
     }
@@ -34,6 +35,10 @@ public class PostingServiceImpl implements PostingService {
 
     @Override
     public Posting createPosting(CreatePostingDto dto, User user) {
+
+        if(!user.getUserRole().equals(UserRole.FARMER)) {
+            throw new ForbiddenException("농장주가 아니면 구인글을 생성할 수 없습니다.");
+        }
 
         Posting posting = Posting.builder()
                 .title(dto.getTitle())

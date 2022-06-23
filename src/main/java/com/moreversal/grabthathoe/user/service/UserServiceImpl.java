@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public UserLoginRo login(UserLoginDto userLoginDto) {
 
         User user = userRepository.findUserByPhone(userLoginDto.getPhone())
-                .orElseThrow(() -> new RecordNotFoundException());
+                .orElseThrow(RecordNotFoundException::new);
 
         String accessToken = jwt.createToken(user, JwtType.ACCESS);
         String refreshToken = jwt.createToken(user, JwtType.REFRESH);
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     public User getUser(Long id) {
 
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException());
+                .orElseThrow(RecordNotFoundException::new);
         return user;
     }
 }
