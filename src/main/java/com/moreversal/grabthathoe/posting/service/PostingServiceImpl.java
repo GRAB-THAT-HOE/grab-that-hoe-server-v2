@@ -21,11 +21,10 @@ public class PostingServiceImpl implements PostingService {
     @Override
     public Posting getPosting(Long id) {
 
-        Optional<Posting> posting = postingRepository.findById(id);
-        if (!posting.isPresent()) {
-            throw new RecordNotFoundException();
-        }
-        return posting.get();
+        Posting posting = postingRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException());
+
+        return posting;
     }
 
     public List<Posting> getAllPostings() {

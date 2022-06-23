@@ -14,8 +14,6 @@ import com.moreversal.grabthathoe.user.domain.ro.UserLoginRo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -45,17 +43,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLoginRo login(UserLoginDto userLoginDto) {
 
-        Optional<User> user = userRepository.findUserByPhone(userLoginDto.getPhone());
+        User user = userRepository.findUserByPhone(userLoginDto.getPhone())
+                .orElseThrow(() -> new RecordNotFoundException());
 
-        if(!user.isPresent()) {
-            throw new RuntimeException("해당 로그인 정보에 대한 회원이 없습니다.");
-        }
-
-        String accessToken = jwt.createToken(user.get(), JwtType.ACCESS);
-        String refreshToken = jwt.createToken(user.get(), JwtType.REFRESH);
+        String accessToken = jwt.createToken(user, JwtType.ACCESS);
+        String refreshToken = jwt.createToken(user, JwtType.REFRESH);
 
         UserLoginRo loginRo = UserLoginRo.builder()
-                .user(user.get())
+                .user(user)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
@@ -73,11 +68,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
 
-        Optional<User> user = userRepository.findById(id);
-        if (!user.isPresent()) {
-            throw new RecordNotFoundException();
-        }
-        return user.get();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException());
+        return user;
     }
 }
 
