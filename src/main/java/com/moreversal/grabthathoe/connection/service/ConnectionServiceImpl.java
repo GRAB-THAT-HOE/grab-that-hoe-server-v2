@@ -4,6 +4,7 @@ import com.moreversal.grabthathoe.common.exception.ForbiddenException;
 import com.moreversal.grabthathoe.common.exception.RecordNotFoundException;
 import com.moreversal.grabthathoe.connection.domain.dto.CreateConnectionDto;
 import com.moreversal.grabthathoe.connection.domain.entity.Connection;
+import com.moreversal.grabthathoe.connection.domain.enums.ConnectionStatus;
 import com.moreversal.grabthathoe.connection.domain.repository.ConnectionRepository;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.posting.domain.repository.PostingRepository;
@@ -43,6 +44,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         Connection connection = Connection.builder()
                 .posting(posting)
                 .worker(user)
+                .status(ConnectionStatus.NORMAL)
                 .regId("test")
                 .updId("test")
                 .build();

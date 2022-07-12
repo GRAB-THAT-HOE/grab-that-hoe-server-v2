@@ -1,7 +1,9 @@
 package com.moreversal.grabthathoe.connection.domain.entity;
 
+import com.moreversal.grabthathoe.connection.domain.enums.ConnectionStatus;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.user.domain.entity.User;
+import io.jsonwebtoken.lang.Assert;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +28,10 @@ public class Connection {
     @JoinColumn(name = "posting_id")
     private Posting posting;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ConnectionStatus status;
+
     @Column(nullable = false, length = 45)
     private String regId;
 
@@ -39,10 +45,15 @@ public class Connection {
     private LocalDateTime updDt;
 
     @Builder
-    public Connection(User worker, Posting posting, String regId, String updId) {
+    public Connection(User worker, Posting posting, ConnectionStatus status, String regId, String updId) {
+
+        Assert.isInstanceOf(ConnectionStatus.class, status, "status must not be empty");
+        org.springframework.util.Assert.hasText(regId, "regId must not be empty");
+        org.springframework.util.Assert.hasText(updId, "updId must not be empty");
 
         this.worker = worker;
         this.posting = posting;
+        this.status = status;
         this.regId = regId;
         this.updId = updId;
     }

@@ -1,4 +1,5 @@
 package com.moreversal.grabthathoe.connection.domain.enums;
 
-public class ConnectionStatus {
+public enum ConnectionStatus {
+    NORMAL, EXPIRED, STOPPED
 }
