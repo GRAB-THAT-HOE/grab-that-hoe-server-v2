@@ -3,6 +3,7 @@ package com.moreversal.grabthathoe.pin.domain.entity;
 import com.moreversal.grabthathoe.posting.domain.entity.Posting;
 import com.moreversal.grabthathoe.user.domain.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,11 @@ public class Pin {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "posting_id")
     private Posting posting;
+
+    @Builder
+    public Pin(User user, Posting posting) {
+
+        this.posting = posting;
+        this.user = user;
+    }
 }

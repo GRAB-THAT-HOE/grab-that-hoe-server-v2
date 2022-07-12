@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping("/join")
     public DataResponse<User> join(@RequestBody UserJoinDto userJoinDto) {
         User createdUser = userService.join(userJoinDto);
-        return new DataResponse<>(HttpStatus.OK, "회원가입 성공", createdUser);
+        return new DataResponse<>(HttpStatus.CREATED, "회원가입 성공", createdUser);
     }
 
     @PostMapping("/login")

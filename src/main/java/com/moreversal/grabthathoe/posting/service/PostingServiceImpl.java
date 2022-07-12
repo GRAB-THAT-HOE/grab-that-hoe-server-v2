@@ -57,7 +57,7 @@ public class PostingServiceImpl implements PostingService {
                 .updId("test")
                 .build();
 
-        return posting;
+        return postingRepository.save(posting);
     }
 
     public Posting updatePosting(UpdatePostingDto dto, User user) {
@@ -71,9 +71,8 @@ public class PostingServiceImpl implements PostingService {
 
         posting.setTitle(dto.getTitle());
         posting.setExplanation(dto.getExplanation());
-        postingRepository.save(posting);
 
-        return posting;
+        return postingRepository.save(posting);
     }
 
     public Posting deletePosting(Long id, User user) {

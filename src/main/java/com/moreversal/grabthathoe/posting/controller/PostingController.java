@@ -32,7 +32,7 @@ public class PostingController {
     public DataResponse<Posting> createPosting(HttpServletRequest request, @RequestBody CreatePostingDto dto) {
         User user = (User) request.getAttribute("user");
         Posting createdPosting = postingService.createPosting(dto, user);
-        return new DataResponse<>(HttpStatus.OK, "포스팅 생성 성공", createdPosting);
+        return new DataResponse<>(HttpStatus.CREATED, "포스팅 생성 성공", createdPosting);
     }
 
     @AuthorizationCheck
