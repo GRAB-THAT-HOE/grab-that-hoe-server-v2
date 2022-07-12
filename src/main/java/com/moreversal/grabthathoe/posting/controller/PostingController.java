@@ -47,7 +47,7 @@ public class PostingController {
     @DeleteMapping("/{id}")
     public Response deletePosting(HttpServletRequest request, @PathVariable("id") Long id) {
         User user = (User) request.getAttribute("user");
-        Posting deletedPosting = postingService.deletePosting(id, user);
+        postingService.deletePosting(id, user);
         return new Response(HttpStatus.OK, "포스팅 삭제 성공");
     }
 }

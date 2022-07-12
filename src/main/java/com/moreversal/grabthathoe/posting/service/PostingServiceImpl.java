@@ -75,7 +75,7 @@ public class PostingServiceImpl implements PostingService {
         return postingRepository.save(posting);
     }
 
-    public Posting deletePosting(Long id, User user) {
+    public void deletePosting(Long id, User user) {
 
         Posting posting = postingRepository.findById(id)
                 .orElseThrow(RecordNotFoundException::new);
@@ -87,7 +87,5 @@ public class PostingServiceImpl implements PostingService {
         // 이미 연결된 일손이 있는지 체크. 있으면 ForbiddenException throw
 
         postingRepository.delete(posting);
-
-        return posting;
     }
 }
