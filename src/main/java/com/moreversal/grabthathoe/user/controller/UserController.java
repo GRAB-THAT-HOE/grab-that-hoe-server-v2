@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
@@ -19,13 +21,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public DataResponse<User> join(@RequestBody UserJoinDto userJoinDto) {
+    public DataResponse<User> join(@RequestBody @Valid UserJoinDto userJoinDto) {
         User createdUser = userService.join(userJoinDto);
         return new DataResponse<>(HttpStatus.CREATED, "회원가입 성공", createdUser);
     }
 
     @PostMapping("/login")
-    public DataResponse<UserLoginRo> login(@RequestBody UserLoginDto loginDto) {
+    public DataResponse<UserLoginRo> login(@RequestBody @Valid UserLoginDto loginDto) {
         UserLoginRo loginRo = userService.login(loginDto);
         return new DataResponse<>(HttpStatus.OK, "로그인 성공", loginRo);
     }
